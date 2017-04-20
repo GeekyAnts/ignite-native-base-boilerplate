@@ -1,0 +1,48 @@
+{
+  "name": "ignite-native-base-boilerplate",
+  "description": "Infinite Red's recommended app structure 2016",
+  "license": "MIT",
+  "repository": "infinitered/ignite",
+  "homepage": "https://github.com/infinitered/ignite",
+  "version": "0.2.1",
+  "files": [
+    "boilerplate",
+    "commands",
+    "templates",
+    "boilerplate.js",
+    "ignite.json",
+    "options.js",
+    "plugin.js",
+    "screenExamples.js"
+  ],
+  "author": {
+    "name": "Infinite Red",
+    "email": "npm@infinite.red",
+    "url": "https://github.com/infinitered/ignite"
+  },
+  "scripts": {
+    "lint": "standard",
+    "test": "ava --concurrency=1",
+    "watch": "ava --watch",
+    "coverage": "nyc ava",
+    "shipit": "np"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "__DEV__"
+    ]
+  },
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "babel-eslint": "^7.1.1",
+    "fs-jetpack": "^0.12.0",
+    "np": "^2.12.0",
+    "nyc": "^10.1.2",
+    "sinon": "^1.17.7",
+    "standard": "^8.6.0"
+  },
+  "dependencies": {
+    "ramda": "^0.23.0"
+  }
+}
