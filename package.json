@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": "infinitered/ignite",
   "homepage": "https://github.com/infinitered/ignite",
-  "version": "0.2.1",
+  "version": "0.0.0",
   "files": [
     "boilerplate",
     "commands",
@@ -15,11 +15,6 @@
     "plugin.js",
     "screenExamples.js"
   ],
-  "author": {
-    "name": "Infinite Red",
-    "email": "npm@infinite.red",
-    "url": "https://github.com/infinitered/ignite"
-  },
   "scripts": {
     "lint": "standard",
     "test": "ava --concurrency=1",
