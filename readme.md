@@ -1,1 +1,1 @@
-# ignite-ir-boilerplate-2016
+# ignite-native-base-boilerplate
