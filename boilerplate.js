@@ -1,5 +1,6 @@
 const options = require('./options')
 const { merge, pipe, assoc, omit, __ } = require('ramda')
+const { getReactNativeVersion } = require('./lib/react-native-version')
 
 /**
  * Is Android installed?
@@ -83,7 +84,11 @@ async function install (context) {
     .succeed()
 
   // attempt to install React Native or die trying
-  const rnInstall = await reactNative.install({ name, skipJest: true })
+  const rnInstall = await reactNative.install({ 
+    name, 
+    skipJest: true,
+    version: getReactNativeVersion(context)
+  })
   if (rnInstall.exitCode > 0) process.exit(rnInstall.exitCode)
 
   // remove the __tests__ directory that come with React Native
