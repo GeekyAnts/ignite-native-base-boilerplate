@@ -1,7 +1,5 @@
-import React, { Component } from "react";
-import Styles from "./Styles/NavigationContainerStyles";
 import { StackNavigator, DrawerNavigator } from "react-navigation";
-// import NavigationDrawer from "./NavigationDrawer";
+import styles from './Styles/NavigationStyles'
 
 // screens identified by the router
 import LaunchScreen from "../Containers/LaunchScreen";
@@ -10,9 +8,6 @@ import CardExample from "../Containers/CardExample";
 import Login from "../Containers/LoginScreen";
 import DrawerContent from "../Containers/DrawerContent";
 
-/* **************************
-* Documentation: https://github.com/aksonov/react-native-router-flux
-***************************/
 
 const NavigationDrawer = DrawerNavigator(
   {
@@ -26,7 +21,7 @@ const NavigationDrawer = DrawerNavigator(
   }
 );
 
-const NavigationRouter = StackNavigator(
+const PrimaryNav = StackNavigator(
   {
     Login: { screen: Login },
     NavigationDrawer: { screen: NavigationDrawer },
@@ -37,4 +32,4 @@ const NavigationRouter = StackNavigator(
   }
 );
 
-export default NavigationRouter;
+export default PrimaryNav

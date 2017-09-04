@@ -18,49 +18,6 @@ const isAndroidInstalled = function (context) {
   return Boolean(hasAndroid)
 }
 
-const finish = async function (context) {
-  const { parameters, system, print, ignite } = context
-  const name = parameters.third
-
-  if (parameters.options['skip-git'] !== true) {
-    // initial git
-    if (system.which('git')) {
-      const spinner = print.spin('configuring git')
-      ignite.log('git init .')
-      await system.run('git init .')
-      ignite.log('git add .')
-      await system.run('git add .')
-      ignite.log('git commit')
-      await system.run('git commit -m "Initial commit."')
-      // setup husky git hooks
-      spinner.text = 'setting up git hooks'
-      system.run(`node node_modules/husky/bin/install .`)
-      spinner.succeed('configured git')
-    }
-  }
-
-  // Wrap it up with our success message.
-  print.info('')
-  print.info('🍽 Time to get cooking!')
-  print.info('')
-  print.info('To run in iOS:')
-  print.info(print.colors.bold(`  cd ${name}`))
-  print.info(print.colors.bold('  react-native run-ios'))
-  print.info('')
-  if (isAndroidInstalled(context)) {
-    print.info('To run in Android:')
-  } else {
-    print.info(`To run in Android, make sure you've followed the latest react-native setup instructions at https://facebook.github.io/react-native/docs/getting-started.html before using ignite.\nYou won't be able to run ${print.colors.bold('react-native run-android')} successfully until you have. Then:`)
-  }
-  print.info(print.colors.bold(`  cd ${name}`))
-  print.info(print.colors.bold('  react-native run-android'))
-  print.info('')
-  print.info('To see what ignite can do for you:')
-  print.info(print.colors.bold(`  cd ${name}`))
-  print.info(print.colors.bold('  ignite'))
-  print.info('')
-}
-
 /**
  * Let's install.
  *
@@ -77,16 +34,19 @@ async function install (context) {
     prompt,
     template
   } = context
+  const { colors } = print
+  const { red, yellow, bold, gray, blue } = colors
+
+  const perfStart = (new Date()).getTime()
 
   const name = parameters.third
   const spinner = print
-    .spin(`using the ${print.colors.red('Native Base')} boilerplate`)
+    .spin(`using the ${red('Native Base')} boilerplate`)
     .succeed()
 
   // attempt to install React Native or die trying
-  const rnInstall = await reactNative.install({ 
-    name, 
-    skipJest: true,
+  const rnInstall = await reactNative.install({
+    name,
     version: getReactNativeVersion(context)
   })
   if (rnInstall.exitCode > 0) process.exit(rnInstall.exitCode)
@@ -94,16 +54,32 @@ async function install (context) {
   // remove the __tests__ directory that come with React Native
   filesystem.remove('__tests__')
 
-  // copy our App & Tests directories
+  // copy our App, Tests & storybook directories
   spinner.text = '▸ copying files'
   spinner.start()
   filesystem.copy(`${__dirname}/boilerplate/App`, `${process.cwd()}/App`, {
-    overwrite: true
+    overwrite: true,
+    matching: '!*.ejs'
   })
   filesystem.copy(`${__dirname}/boilerplate/Tests`, `${process.cwd()}/Tests`, {
-    overwrite: true
+    overwrite: true,
+    matching: '!*.ejs'
+  })
+  filesystem.copy(`${__dirname}/boilerplate/storybook`, `${process.cwd()}/storybook`, {
+    overwrite: true,
+    matching: '!*.ejs'
   })
   spinner.stop()
+
+  // --max, --min, interactive
+  let answers
+  if (parameters.options.max) {
+    answers = options.answers.max
+  } else if (parameters.options.min) {
+    answers = options.answers.min
+  } else {
+    answers = await prompt.ask(options.questions)
+  }
 
   // generate some templates
   spinner.text = '▸ generating files'
@@ -113,10 +89,9 @@ async function install (context) {
     { template: 'README.md', target: 'README.md' },
     { template: 'ignite.json.ejs', target: 'ignite/ignite.json' },
     { template: '.editorconfig', target: '.editorconfig' },
-    {
-      template: 'App/Config/AppConfig.js.ejs',
-      target: 'App/Config/AppConfig.js'
-    }
+    { template: '.babelrc', target: '.babelrc' },
+    { template: 'Tests/Setup.js.ejs', target: 'Tests/Setup.js' },
+    { template: 'storybook/storybook.ejs', target: 'storybook/storybook.js' }
   ]
   const templateProps = {
     name,
@@ -138,7 +113,7 @@ async function install (context) {
    * Merge the package.json from our template into the one provided from react-native init.
    */
   async function mergePackageJsons () {
-    // transform our package.json incase we need to replace variables
+    // transform our package.json in case we need to replace variables
     const rawJson = await template.generate({
       directory: `${ignite.ignitePluginPath()}/boilerplate`,
       template: 'package.json.ejs',
@@ -173,25 +148,6 @@ async function install (context) {
 
   spinner.stop()
 
-  // --max, --min, interactive
-  let answers
-  if (parameters.options.max) {
-    answers = options.answers.max
-  } else if (parameters.options.min) {
-    answers = options.answers.min
-  } else {
-    answers = await prompt.ask(options.questions)
-  }
-
-  spinner.text = '▸ installing ignite dependencies'
-  spinner.start()
-  if (context.ignite.useYarn) {
-    await system.run('yarn')
-  } else {
-    await system.run('npm i')
-  }
-  spinner.stop()
-
   // react native link -- must use spawn & stdio: ignore or it hangs!! :(
   spinner.text = `▸ linking native libraries`
   spinner.start()
@@ -203,40 +159,86 @@ async function install (context) {
 
   // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   // NOTE(steve): I'm re-adding this here because boilerplates now hold permanent files
-  // TODO(steve):
-  //   * this needs to get planned a little better.
   // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
   try {
-    await system.spawn(`ignite add ir-boilerplate-2016 ${debugFlag}`, { stdio: 'inherit' })
+    // boilerplate adds itself to get plugin.js/generators etc
+    // Could be directory, npm@version, or just npm name.  Default to passed in values
+    const boilerplate = parameters.options.b || parameters.options.boilerplate || 'ignite-ir-boilerplate'
+
+    await system.spawn(`ignite add ${boilerplate} ${debugFlag}`, { stdio: 'inherit' })
 
     // now run install of Ignite Plugins
     // if (answers['dev-screens'] === 'Yes') {
-    //   await system.spawn(`ignite add dev-screens ${debugFlag}`, {
+    //   await system.spawn(`ignite add dev-screens@"~>2.0.0" ${debugFlag}`, {
     //     stdio: 'inherit'
     //   })
     // }
 
     // if (answers['vector-icons'] === 'react-native-vector-icons') {
-      await system.spawn(`ignite add vector-icons ${debugFlag}`, {
+      await system.spawn(`ignite add vector-icons@"~>1.0.0" ${debugFlag}`, {
         stdio: 'inherit'
       })
     // }
 
     if (answers['i18n'] === 'react-native-i18n') {
-      await system.spawn(`ignite add i18n ${debugFlag}`, { stdio: 'inherit' })
+      await system.spawn(`ignite add i18n@"~>1.0.0" ${debugFlag}`, { stdio: 'inherit' })
     }
 
     // if (answers['animatable'] === 'react-native-animatable') {
-    //   await system.spawn(`ignite add animatable ${debugFlag}`, {
+    //   await system.spawn(`ignite add animatable@"~>1.0.0" ${debugFlag}`, {
     //     stdio: 'inherit'
     //   })
     // }
+
+    if (parameters.options.lint !== 'false') {
+      await system.spawn(`ignite add standard@"~>1.0.0" ${debugFlag}`, {
+        stdio: 'inherit'
+      })
+    }
   } catch (e) {
     ignite.log(e)
     throw e
   }
 
-  await finish(context)
+  // git configuration
+  const gitExists = await filesystem.exists('./.git')
+  if (!gitExists && !parameters.options['skip-git'] && system.which('git')) {
+    // initial git
+    const spinner = print.spin('configuring git')
+
+    // TODO: Make husky hooks optional
+    const huskyCmd = '' // `&& node node_modules/husky/bin/install .`
+    system.run(`git init . && git add . && git commit -m "Initial commit." ${huskyCmd}`)
+
+    spinner.succeed(`configured git`)
+  }
+
+  const perfDuration = parseInt(((new Date()).getTime() - perfStart) / 10) / 100
+  spinner.succeed(`ignited ${yellow(name)} in ${perfDuration}s`)
+
+  const androidInfo = isAndroidInstalled(context) ? ''
+    : `\n\nTo run in Android, make sure you've followed the latest react-native setup instructions at https://facebook.github.io/react-native/docs/getting-started.html before using ignite.\nYou won't be able to run ${bold('react-native run-android')} successfully until you have.`
+
+  const successMessage = `
+    ${red('Ignite CLI')} ignited ${yellow(name)} in ${gray(`${perfDuration}s`)}
+
+    To get started:
+
+      cd ${name}
+      react-native run-ios
+      react-native run-android${androidInfo}
+      ignite --help
+
+    ${gray('Read the walkthrough at https://github.com/infinitered/ignite-ir-boilerplate/blob/master/readme.md#boilerplate-walkthrough')}
+
+    ${blue('Need additional help? Join our Slack community at http://community.infinite.red.')}
+
+    ${bold('Now get cooking! 🍽')}
+  `
+
+  print.info(successMessage)
 }
 
-module.exports = { install }
+module.exports = {
+  install
+}

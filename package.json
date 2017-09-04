@@ -8,11 +8,13 @@
   "files": [
     "boilerplate",
     "commands",
+    "lib",
     "templates",
     "boilerplate.js",
     "ignite.json",
     "options.js",
     "plugin.js",
+    "readme.md",
     "screenExamples.js"
   ],
   "scripts": {
@@ -37,8 +39,8 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "fs-jetpack": "^1.0.0",
-    "np": "^2.15.0",
     "jest": "^20.0.4",
+    "np": "^2.15.0",
     "sinon": "^2.3.1",
     "standard": "^10.0.2",
     "tempy": "^0.1.0"

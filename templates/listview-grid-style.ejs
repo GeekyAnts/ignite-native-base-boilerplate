@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native'
-import { ApplicationStyles, Metrics, Colors } from '../../../../../DevScreens/DevTheme/'
+import { ApplicationStyles, Metrics, Colors } from '../../Themes'
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
   container: {
     flex: 1,
-    marginTop: Metrics.navBarHeight,
     backgroundColor: Colors.background
   },
   row: {
@@ -16,6 +15,13 @@ export default StyleSheet.create({
     margin: Metrics.baseMargin,
     backgroundColor: Colors.fire,
     borderRadius: Metrics.smallMargin
+  },
+  sectionHeader: {
+    paddingTop: Metrics.doubleBaseMargin,
+    width: Metrics.screenWidth,
+    alignSelf: 'center',
+    margin: Metrics.baseMargin,
+    backgroundColor: Colors.background
   },
   boldLabel: {
     fontWeight: 'bold',
