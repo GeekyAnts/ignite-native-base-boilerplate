@@ -1,29 +1,46 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Image } from 'react-native'
-import { Card, CardItem, Text, View, Thumbnail, Container, Header, Content, Title, Button, Left, Right, Body, Icon} from 'native-base'
+import React from "react";
+import { connect } from "react-redux";
+import { Image } from "react-native";
+import {
+  Card,
+  CardItem,
+  Text,
+  View,
+  Thumbnail,
+  Container,
+  Header,
+  Content,
+  Title,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+} from "native-base";
 // import Icon from 'react-native-vector-icons/Ionicons'
 
-
 class CardExample extends React.Component {
-  render () {
+  render() {
     return (
-      <Container >
+      <Container>
         <Header>
           <Left>
-            <Button transparent onPress={()=> this.context.drawer.open()}>
+            <Button transparent onPress={() => this.props.navigation.navigate("DrawerOpen")}>
               <Icon name="ios-menu" />
             </Button>
           </Left>
-          <Body style={{flex: 3}}>
+          <Body style={{ flex: 3 }}>
             <Title>Card Example</Title>
           </Body>
           <Right />
         </Header>
         <Content padder>
-          <Card style={{flex: 0}}>
+          <Card style={{ flex: 0 }}>
             <CardItem>
-              <Image style={{ resizeMode: 'cover', height: 200,flex: 1 }} source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
+              <Image
+                style={{ resizeMode: "cover", height: 200, flex: 1 }}
+                source={{ uri: "https://facebook.github.io/react/img/logo_og.png" }}
+              />
             </CardItem>
             <CardItem>
               <Button transparent>
@@ -32,9 +49,12 @@ class CardExample extends React.Component {
               </Button>
             </CardItem>
           </Card>
-          <Card style={{flex: 0}}>
+          <Card style={{ flex: 0 }}>
             <CardItem>
-              <Image style={{ resizeMode: 'cover', height: 200,flex: 1 }} source={{uri: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'}} />
+              <Image
+                style={{ resizeMode: "cover", height: 200, flex: 1 }}
+                source={{ uri: "https://assets-cdn.github.com/images/modules/logos_page/Octocat.png" }}
+              />
             </CardItem>
             <CardItem>
               <Button transparent>
@@ -45,14 +65,13 @@ class CardExample extends React.Component {
           </Card>
         </Content>
       </Container>
-    )
+    );
   }
 }
-CardExample.contextTypes = {drawer: React.PropTypes.object}
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     // ...redux state to props here
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps)(CardExample)
+export default connect(mapStateToProps)(CardExample);
