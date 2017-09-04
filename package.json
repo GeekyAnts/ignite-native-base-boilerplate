@@ -18,8 +18,8 @@
   "scripts": {
     "lint": "standard",
     "test": "jest",
-    "watch": "ava --watch",
-    "coverage": "nyc ava",
+    "watch": "jest --runInBand --watch",
+    "coverage": "jest --runInBand --coverage",
     "shipit": "np"
   },
   "standard": {
