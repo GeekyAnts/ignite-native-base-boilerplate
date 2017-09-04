@@ -25,7 +25,13 @@
   "standard": {
     "parser": "babel-eslint",
     "globals": [
-      "__DEV__"
+      "__DEV__",
+      "jasmine",
+      "beforeAll",
+      "afterAll",
+      "test",
+      "expect",
+      "describe"
     ]
   },
   "devDependencies": {
