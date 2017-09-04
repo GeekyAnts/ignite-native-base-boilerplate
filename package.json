@@ -34,8 +34,10 @@
     "fs-jetpack": "^0.12.0",
     "np": "^2.12.0",
     "nyc": "^10.1.2",
+    "jest": "^20.0.4",
     "sinon": "^1.17.7",
-    "standard": "^8.6.0"
+    "standard": "^8.6.0",
+    "tempy": "^0.1.0"
   },
   "dependencies": {
     "ramda": "^0.23.0"
