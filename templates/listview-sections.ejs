@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, ListView, Text } from 'react-native'
+import { View, ListView, Text, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 
 // For empty lists
@@ -9,6 +9,14 @@ import { connect } from 'react-redux'
 import styles from './Styles/<%= props.name %>Style'
 
 class <%= props.name %> extends Component {
+  
+  componentDidMount () {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.navigation.goBack();
+      return true
+    })
+  }
+
   constructor (props) {
     super(props)
 

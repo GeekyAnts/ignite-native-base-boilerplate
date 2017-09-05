@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, SectionList, Text } from 'react-native'
+import { View, SectionList, Text, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 
 // More info here: https://facebook.github.io/react-native/docs/sectionlist.html
@@ -8,6 +8,14 @@ import { connect } from 'react-redux'
 import styles from './Styles/<%= props.name %>Style'
 
 class <%= props.name %> extends React.PureComponent {
+
+  componentDidMount () {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.navigation.goBack();
+      return true
+    })
+  }
+
   /* ***********************************************************
   * STEP 1
   * This is an array of objects with the properties you desire

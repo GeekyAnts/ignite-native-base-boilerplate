@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BackHandler } from 'react-native'
 import { Content, Text } from 'native-base'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -12,10 +13,16 @@ class <%= props.name %> extends Component {
   //   super(props)
   //   this.state = {}
   // }
+  componentDidMount () {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.navigation.goBack();
+      return true
+    })
+  }
 
   render () {
     return (
-      <Content style={styles.container}>
+      <Content>
         <Text><%= props.name %> Container</Text>
       </Content>
     )
