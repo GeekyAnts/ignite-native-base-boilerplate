@@ -27,3 +27,17 @@ If you want very few of these extras:
 ```sh
 ignite new appname --min --boilerplate native-base-boilerplate
 ```
+
+### Quick Examples
+
+```
+$ ignite add maps
+$ ignite add vector-icons
+$ ignite generate screen ScreenName
+$ ignite generate container ContainerName
+$ ignite generate component ComponentName
+$ ignite generate list ListName
+$ ignite generate map StoreLocator
+$ ignite add i18n
+$ ignite remove i18n
+```
