@@ -6,22 +6,25 @@ import styles from "./Styles/DrawerContentStyles";
 import { Images } from "../Themes";
 
 class DrawerContent extends Component {
-  render() {
-    const navigation = this.props.navigation;
-    return (
-      <View style={styles.container}>
-        <Image source={Images.logoDark} style={styles.logo} />
-        <Content>
-          <ListItem onPress={() => navigation.navigate("ListviewExample")}>
-            <Text>List example</Text>
-          </ListItem>
-          <ListItem onPress={() => navigation.navigate("CardExample")}>
-            <Text>Card example</Text>
-          </ListItem>
-        </Content>
-      </View>
-    );
-  }
+	render() {
+		const navigation = this.props.navigation;
+		const items = this.props.items;
+		return (
+			<View style={styles.container}>
+				<Image source={Images.logoDark} style={styles.logo} />
+				<Content>
+					<List
+						dataArray={items}
+						renderRow={item => (
+							<ListItem onPress={() => navigation.navigate(item.routeName)}>
+								<Text>{item.routeName}</Text>
+							</ListItem>
+						)}
+					/>
+				</Content>
+			</View>
+		);
+	}
 }
 
 export default DrawerContent;

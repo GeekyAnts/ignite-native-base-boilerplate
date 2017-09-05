@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { BackHandler } from 'react-native'
+import { Content, Container, Header, Left, Right, Body, Button, Text, Title, Icon, Footer, FooterTab } from 'native-base'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -8,13 +9,43 @@ import { connect } from 'react-redux'
 import styles from './Styles/<%= props.name %>Style'
 
 class <%= props.name %> extends Component {
+  componentDidMount () {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.props.navigation.goBack();
+      return true
+    })
+  }
   render () {
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Text><%= props.name %></Text>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      <Container style={styles.container}>
+        <Header>
+          <Left>
+            <Button
+              transparent
+              onPress={() => this.props.navigation.navigate("DrawerOpen")}
+            >
+              <Icon name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title><%= props.name %></Title>
+          </Body>
+          <Right />
+
+        </Header>
+
+        <Content padder>
+          <Text><%= props.name %> Content</Text>
+        </Content>
+
+        <Footer>
+          <FooterTab>
+            <Button active full>
+              <Text>Footer</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
     )
   }
 }
