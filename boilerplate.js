@@ -31,7 +31,7 @@ async function install(context) {
 	const perfStart = new Date().getTime();
 
 	const name = parameters.third;
-	const spinner = print.spin(`using the ${red("Native Base")} boilerplate`).succeed();
+	const spinner = print.spin(`using the ${red("Native Base's")} Iginte boilerplate`).succeed();
 
 	// attempt to install React Native or die trying
 	const rnInstall = await reactNative.install({

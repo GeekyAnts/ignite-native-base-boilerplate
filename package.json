@@ -1,51 +1,43 @@
 {
-  "name": "ignite-native-base-boilerplate",
-  "description": "Infinite Red's recommended app structure 2016",
-  "license": "MIT",
-  "repository": "infinitered/ignite",
-  "homepage": "https://github.com/infinitered/ignite",
-  "version": "0.1.11",
-  "files": [
-    "boilerplate",
-    "commands",
-    "lib",
-    "templates",
-    "boilerplate.js",
-    "ignite.json",
-    "options.js",
-    "plugin.js",
-    "readme.md",
-    "screenExamples.js"
-  ],
-  "scripts": {
-    "lint": "standard",
-    "test": "jest",
-    "watch": "jest --runInBand --watch",
-    "coverage": "jest --runInBand --coverage",
-    "shipit": "np"
-  },
-  "standard": {
-    "parser": "babel-eslint",
-    "globals": [
-      "__DEV__",
-      "jasmine",
-      "beforeAll",
-      "afterAll",
-      "test",
-      "expect",
-      "describe"
-    ]
-  },
-  "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "fs-jetpack": "^1.0.0",
-    "jest": "^20.0.4",
-    "np": "^2.15.0",
-    "sinon": "^2.3.1",
-    "standard": "^10.0.2",
-    "tempy": "^0.1.0"
-  },
-  "dependencies": {
-    "ramda": "^0.23.0"
-  }
+	"name": "ignite-native-base-boilerplate",
+	"description": "Native Base's Ignite boilerplate for React Native",
+	"license": "MIT",
+	"repository": "GeekyAnts/ignite-native-base-boilerplate",
+	"homepage": "https://github.com/GeekyAnts/ignite-native-base-boilerplate",
+	"version": "0.1.11",
+	"files": [
+		"boilerplate",
+		"commands",
+		"lib",
+		"templates",
+		"boilerplate.js",
+		"ignite.json",
+		"options.js",
+		"plugin.js",
+		"readme.md",
+		"screenExamples.js"
+	],
+	"scripts": {
+		"lint": "standard",
+		"test": "jest",
+		"watch": "jest --runInBand --watch",
+		"coverage": "jest --runInBand --coverage",
+		"shipit": "np"
+	},
+	"standard": {
+		"parser": "babel-eslint",
+		"globals": ["__DEV__", "jasmine", "beforeAll", "afterAll", "test", "expect", "describe"]
+	},
+	"devDependencies": {
+		"babel-eslint": "^7.1.1",
+		"fs-jetpack": "^1.0.0",
+		"jest": "^20.0.4",
+		"np": "^2.15.0",
+		"sinon": "^2.3.1",
+		"standard": "^10.0.2",
+		"tempy": "^0.1.0"
+	},
+	"dependencies": {
+		"ramda": "^0.23.0"
+	}
 }
