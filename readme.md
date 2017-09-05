@@ -1,4 +1,4 @@
-# ignite-native-base-boilerplate
+# ignite-native-base-boilerplate v2
 
 ![NativeBase Ignite Boilerplate Preview](https://cdn-images-1.medium.com/max/800/1*Ik9jWMfugaQ_9qinfK0haA.gif "NativeBase Ignite Boilerplate Preview")
 
