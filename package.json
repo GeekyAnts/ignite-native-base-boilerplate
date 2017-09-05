@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": "infinitered/ignite",
   "homepage": "https://github.com/infinitered/ignite",
-  "version": "0.1.5",
+  "version": "0.1.6-alpha1",
   "files": [
     "boilerplate",
     "commands",
