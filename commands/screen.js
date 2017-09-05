@@ -54,8 +54,7 @@ module.exports = async function(context) {
 
 		// insert screen route
 		ignite.patchInFile(appNavFilePath, {
-			after: 'const NavigationDrawer = DrawerNavigator(
-				{',
+			after: patterns[patterns.constants.PATTERN_ROUTES],
 			insert: routeToAdd,
 		});
 	} else {
