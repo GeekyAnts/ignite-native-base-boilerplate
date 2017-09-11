@@ -1,6 +1,6 @@
 # ignite-native-base-boilerplate v2
 
-![NativeBase Ignite Boilerplate Preview](https://cdn-images-1.medium.com/max/800/1*Ik9jWMfugaQ_9qinfK0haA.gif "NativeBase Ignite Boilerplate Preview")
+![NativeBase Ignite Boilerplate Preview](./demo-examples/ios-full-app.gif)
 
 ## Quick Start
 
@@ -41,3 +41,38 @@ $ ignite generate map StoreLocator
 $ ignite add i18n
 $ ignite remove i18n
 ```
+
+
+### Demo Examples
+
+
+```
+$ ignite generate screen MyNewScreen
+```
+![Generate New Screen](./demo-examples/ios-generate-screen.gif)
+
+
+
+```
+$ ignite generate container MyNewContainer
+```
+![Generate New Container](./demo-examples/ios-generate-container.gif)
+
+
+
+```
+$ ignite generate component MyNewComponent
+```
+This generates a generic components which is reusable in any screen of the app.
+
+![Generate New Component](./demo-examples/ios-generate-component.gif)
+
+
+
+```
+$ ignite generate list MyNewList
+```
+![Generate New List](./demo-examples/ios-generate-list-flat-row.gif)
+
+![Generate New List](./demo-examples/ios-generate-list-flat-grid.gif)
+
