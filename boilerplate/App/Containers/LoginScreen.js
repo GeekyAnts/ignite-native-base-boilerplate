@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { View, ScrollView, Text, TextInput, TouchableOpacity, Image, Keyboard, LayoutAnimation } from "react-native";
-import PropTypes from 'prop-types'
 import { connect } from "react-redux";
 import Styles from "./Styles/LoginScreenStyles";
 import { Images, Metrics } from "../Themes";
