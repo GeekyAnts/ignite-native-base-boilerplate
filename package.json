@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": "GeekyAnts/ignite-native-base-boilerplate",
   "homepage": "https://github.com/GeekyAnts/ignite-native-base-boilerplate",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "files": [
     "boilerplate",
     "commands",
