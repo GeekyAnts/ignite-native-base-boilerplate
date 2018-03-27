@@ -73,8 +73,8 @@ async function install(context) {
 	// generate some templates
 	spinner.text = "▸ generating files";
 	const templates = [
-		{ template: "index.js.ejs", target: "index.ios.js" },
-		{ template: "index.js.ejs", target: "index.android.js" },
+		{ template: "index.js.ejs", target: "index.js" },
+		{ template: "index.js.ejs", target: "App.js" },
 		{ template: "README.md", target: "README.md" },
 		{ template: "ignite.json.ejs", target: "ignite/ignite.json" },
 		{ template: ".editorconfig", target: ".editorconfig" },
