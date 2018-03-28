@@ -11,6 +11,9 @@ const NavigationDrawer = DrawerNavigator({
 		CardExample: { screen: CardExample },
 	},
 	{
+    drawerOpenRoute: 'DrawerOpen',
+		drawerCloseRoute: 'DrawerClose',
+		drawerToggleRoute: 'DrawerToggle',		
 		initialRouteName: "ListviewExample",
 		contentComponent: props => <DrawerContent {...props} />,
 	}
