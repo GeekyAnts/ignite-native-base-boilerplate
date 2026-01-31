@@ -2,6 +2,15 @@
 
 ![NativeBase Ignite Boilerplate Preview](./demo-examples/ios-full-app.gif)
 
+
+## About
+
+   Ignite boilerplate with NativeBase by [GeekyAnts](https://geekyants.com?utm_source=github&utm_medium=opensource&utm_campaign=ignite-native-base-boilerplate).
+
+   Speed up your development with our
+   [React Native expertise](https://geekyants.com/hire-react-native-developers?utm_source=github&utm_medium=opensource&utm_campaign=ignite-native-base-boilerplate)
+   and [MVP acceleration](https://geekyants.com/service/mvp-development-service?utm_source=github&utm_medium=opensource&utm_campaign=ignite-native-base-boilerplate).
+
 ## Quick Start
 
 You can run the following command to create the boilerplate, provided you have [Ignite CLI](https://github.com/infinitered/ignite) installed.
